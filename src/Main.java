@@ -11,13 +11,17 @@ public class Main {
 
     static Perceptron perceptron = new Perceptron(4, 0, 0.25);
 
+    static int iterationNumber = 100;
+
     public static void main(String[] args) {
         getData();
 
         // Założenie: Iris setosa -> 1
         // Wszystkie pozostałe -> 0
 
-        TeachPerceptron();
+        for(int i = 0; i < iterationNumber; i++){
+            TeachPerceptron();
+        }
 
         TestAccuracy();
 
@@ -35,26 +39,14 @@ public class Main {
         int counter = 0;
         for (Iris iris : listToTest) {
             double[] data = {iris.sepalLength, iris.sepalWidth, iris.petalLength, iris.petalWidth};
-            perceptron.learn(data, isSetosa(iris));
 
-            if(perceptron.classify(data) == 1){// Perceptron mówi, że to jest setosa
-                if(isSetosa(iris) == 1){
-                    counter++;
-                }
-            }else{// Perceptron mówi, że nie jest to setosa
-                if(isSetosa(iris) == 0){
-                    counter++;
-                }
+            if(perceptron.classify(data) == isSetosa(iris)){// Sprawdzamy, czy perceptron mówi prawdę
+                counter++;
             }
         }
-        double accuracy = (counter / listToTest.size()) * 100;
+        double accuracy = ((double)counter / (double)listToTest.size()) * 100;
         System.out.println("Celność perceptronu: " + accuracy + "%");
     }
-
-
-
-
-
 
 
     static int isSetosa(Iris iris){
