@@ -43,4 +43,16 @@ public class Perceptron {
         }
         activationTreshold = activationTreshold - alphaLearningConstant * error;
     }
+
+
+    // Gettery
+    public double[] getWeights() {
+        return weights;
+    }
+    public double getActivationTreshold() {
+        return activationTreshold;
+    }
+    public double getAlphaLearningConstant(){
+        return alphaLearningConstant;
+    }
 }
