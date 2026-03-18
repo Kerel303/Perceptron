@@ -9,14 +9,66 @@ public class Main {
     static List<Iris> listToTeach = new ArrayList<>();
     static List<Iris> listToTest = new ArrayList<>();
 
+    static Perceptron perceptron = new Perceptron(4, 0, 0.25);
+
     public static void main(String[] args) {
         getData();
 
         // Założenie: Iris setosa -> 1
         // Wszystkie pozostałe -> 0
 
+        TeachPerceptron();
+
+        TestAccuracy();
 
     }
+
+
+    static void TeachPerceptron(){
+        for (Iris iris : listToTeach) {
+            double[] data = {iris.sepalLength, iris.sepalWidth, iris.petalLength, iris.petalWidth};
+            perceptron.learn(data, isSetosa(iris));
+        }
+    }
+
+    static void TestAccuracy(){
+
+    }
+
+
+
+
+
+
+
+    static int isSetosa(Iris iris){
+        if(iris.type.equals("Iris-setosa")){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
