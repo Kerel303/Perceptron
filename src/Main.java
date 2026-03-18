@@ -32,7 +32,23 @@ public class Main {
     }
 
     static void TestAccuracy(){
+        int counter = 0;
+        for (Iris iris : listToTest) {
+            double[] data = {iris.sepalLength, iris.sepalWidth, iris.petalLength, iris.petalWidth};
+            perceptron.learn(data, isSetosa(iris));
 
+            if(perceptron.classify(data) == 1){// Perceptron mówi, że to jest setosa
+                if(isSetosa(iris) == 1){
+                    counter++;
+                }
+            }else{// Perceptron mówi, że nie jest to setosa
+                if(isSetosa(iris) == 0){
+                    counter++;
+                }
+            }
+        }
+        double accuracy = (counter / listToTest.size()) * 100;
+        System.out.println("Celność perceptronu: " + accuracy + "%");
     }
 
 
