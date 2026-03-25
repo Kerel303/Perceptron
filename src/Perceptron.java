@@ -2,6 +2,7 @@ public class Perceptron {
     private double[] weights;
     private double activationThreshold;
     private double alphaLearningConstant;
+    private double betaLearningConstant = 0;
     //Przyjmujemy długość wektora wag, próg , próg włączenia perceptronu, oraz stałą uczenia alfa
     Perceptron(int LengthOfTheWeightVector, double activationThreshold, double alphaLearningConstant){
         weights = new double[LengthOfTheWeightVector];
@@ -11,6 +12,17 @@ public class Perceptron {
         }
         this.activationThreshold = activationThreshold;
         this.alphaLearningConstant = alphaLearningConstant;
+    }
+    //Przyjmujemy długość wektora wag, próg , próg włączenia perceptronu, oraz stałą uczenia alfa i stałą uczenia beta dla progu aktywacji
+    Perceptron(int LengthOfTheWeightVector, double activationThreshold, double alphaLearningConstant, double betaLearningConstant){
+        weights = new double[LengthOfTheWeightVector];
+        for(int i = 0; i < LengthOfTheWeightVector; i++){
+            // Początkowe wartości wag są losowane od (-1) do (1)
+            weights[i] = (Math.random()*2)-1;
+        }
+        this.activationThreshold = activationThreshold;
+        this.alphaLearningConstant = alphaLearningConstant;
+        this.betaLearningConstant = betaLearningConstant;
     }
 
     int classify(double[] data){
@@ -41,7 +53,11 @@ public class Perceptron {
         for(int i = 0; i < this.weights.length; i++){
             weights[i] = weights[i] + error*alphaLearningConstant*data[i];
         }
-        activationThreshold = activationThreshold - alphaLearningConstant * error;
+        if(betaLearningConstant != 0){
+            activationThreshold = activationThreshold - betaLearningConstant * error;
+        }else{
+            activationThreshold = activationThreshold - alphaLearningConstant * error;
+        }
     }
 
 
